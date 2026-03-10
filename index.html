@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>心灵港湾 - 心理减压规划师</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <aside class="sidebar">
+            <div class="logo">
+                <div class="logo-icon">🌸</div>
+                <h1>心灵港湾</h1>
+                <p class="tagline">您的心理健康伴侣</p>
+            </div>
+            <div class="user-status" id="user-status">
+                <div class="status-free">
+                    <span class="status-badge free">免费用户</span>
+                    <button class="upgrade-btn" id="upgrade-btn">升级会员</button>
+                </div>
+                <div class="status-vip" style="display: none;">
+                    <span class="status-badge vip">👑 VIP会员</span>
+                    <span class="expire-date">有效期至：<span id="expire-date">-</span></span>
+                </div>
+            </div>
+            <nav class="nav-menu">
+                <button class="nav-item active" data-page="chat"><span class="icon">💬</span><span>倾诉空间</span><span class="free-tag">免费</span></button>
+                <button class="nav-item" data-page="assessment"><span class="icon">📊</span><span>压力评估</span><span class="free-tag">免费</span></button>
+                <button class="nav-item" data-page="relax"><span class="icon">🧘</span><span>减压方案</span><span class="free-tag">免费</span></button>
+                <button class="nav-item" data-page="diary"><span class="icon">📔</span><span>心情日记</span><span class="free-tag">免费</span></button>
+                <button class="nav-item vip-item" data-page="deep-consult"><span class="icon">🧠</span><span>深度咨询</span><span class="vip-tag">VIP</span></button>
+                <button class="nav-item vip-item" data-page="report"><span class="icon">📋</span><span>专业报告</span><span class="vip-tag">VIP</span></button>
+                <button class="nav-item vip-item" data-page="plan"><span class="icon">📅</span><span>定制计划</span><span class="vip-tag">VIP</span></button>
+            </nav>
+            <div class="mood-tracker">
+                <h3>今日心情</h3>
+                <div class="mood-buttons">
+                    <button class="mood-btn" data-mood="great">😊</button>
+                    <button class="mood-btn" data-mood="good">🙂</button>
+                    <button class="mood-btn" data-mood="neutral">😐</button>
+                    <button class="mood-btn" data-mood="low">😔</button>
+                    <button class="mood-btn" data-mood="anxious">😰</button>
+                </div>
+            </div>
+        </aside>
+        <main class="main-content">
+            <section id="chat-page" class="page active">
+                <div class="page-header">
+                    <h2>倾诉空间</h2>
+                    <p class="subtitle">这里是一个安全的倾诉空间</p>
+                </div>
+                <div class="chat-container">
+                    <div class="chat-messages" id="chat-messages">
+                        <div class="message assistant">
+                            <div class="avatar">🌸</div>
+                            <div class="message-content">
+                                <p>您好，欢迎来到心灵港湾 🌸</p>
+                                <p>我是您的心理健康伴侣，有什么想和我分享的吗？</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="chat-input-area">
+                        <div class="quick-replies">
+                            <button class="quick-btn" data-message="今天感觉很累">今天感觉很累</button>
+                            <button class="quick-btn" data-message="最近压力很大">最近压力很大</button>
+                            <button class="quick-btn" data-message="想找人聊聊">想找人聊聊</button>
+                        </div>
+                        <div class="input-wrapper">
+                            <textarea id="chat-input" placeholder="写下您想说的话..." rows="1"></textarea>
+                            <button id="send-btn" class="send-btn">发送</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section id="assessment-page" class="page">
+                <div class="page-header">
+                    <h2>压力评估</h2>
+                    <p class="subtitle">了解您的压力水平</p>
+                </div>
+                <div class="assessment-container">
+                    <div class="assessment-intro" id="assessment-intro">
+                        <div class="intro-card">
+                            <div class="intro-icon">📋</div>
+                            <h3>专业压力评估问卷</h3>
+                            <p>仅需3-5分钟，了解您的压力状态</p>
+                            <button id="start-assessment" class="primary-btn">开始评估</button>
+                        </div>
+                    </div>
+                    <div class="assessment-questions" id="assessment-questions" style="display: none;">
+                        <div class="progress-bar"><div class="progress" id="assessment-progress"></div></div>
+                        <div id="question-container"></div>
+                        <div class="question-nav">
+                            <button id="prev-question" class="secondary-btn">上一题</button>
+                            <button id="next-question" class="primary-btn">下一题</button>
+                        </div>
+                    </div>
+                    <div class="assessment-result" id="assessment-result" style="display: none;">
+                        <div class="result-card">
+                            <div class="result-icon" id="result-icon">🌿</div>
+                            <h3 id="result-title">评估结果</h3>
+                            <div class="result-score">
+                                <span class="score-label">压力指数</span>
+                                <span class="score-value" id="score-value">0</span>
+                                <span class="score-max">/ 100</span>
+                            </div>
+                            <p id="result-description"></p>
+                            <div class="result-suggestions" id="result-suggestions"></div>
+                            <button id="retake-assessment" class="secondary-btn">重新评估</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section id="relax-page" class="page">
+                <div class="page-header">
+                    <h2>减压方案</h2>
+                    <p class="subtitle">找到最适合您的减压方式</p>
+                </div>
+                <div class="relax-container">
+                    <div class="category-tabs">
+                        <button class="tab-btn active" data-category="breathing">呼吸放松</button>
+                        <button class="tab-btn" data-category="meditation">冥想引导</button>
+                        <button class="tab-btn" data-category="exercise">运动减压</button>
+                        <button class="tab-btn" data-category="lifestyle">生活方式</button>
+                    </div>
+                    <div class="relax-content" id="relax-content"></div>
+                </div>
+            </section>
+            <section id="diary-page" class="page">
+                <div class="page-header">
+                    <h2>心情日记</h2>
+                    <p class="subtitle">记录每一天的情绪</p>
+                </div>
+                <div class="diary-container">
+                    <div class="diary-editor">
+                        <div class="editor-header">
+                            <input type="date" id="diary-date" class="date-picker">
+                            <div class="mood-selector">
+                                <span>今天的心情：</span>
+                                <div class="mood-options">
+                                    <button class="mood-opt active" data-mood="happy">😊 开心</button>
+                                    <button class="mood-opt" data-mood="calm">😌 平静</button>
+                                    <button class="mood-opt" data-mood="anxious">😰 焦虑</button>
+                                    <button class="mood-opt" data-mood="sad">😔 难过</button>
+                                    <button class="mood-opt" data-mood="angry">😤 愤怒</button>
+                                </div>
+                            </div>
+                        </div>
+                        <textarea id="diary-content" placeholder="写下今天的事..."></textarea>
+                        <div class="editor-footer">
+                            <span class="word-count"><span id="word-count">0</span> 字</span>
+                            <button id="save-diary" class="primary-btn">保存日记</button>
+                        </div>
+                    </div>
+                    <div class="diary-history">
+                        <h3>历史记录</h3>
+                        <div class="history-list" id="diary-history-list"></div>
+                    </div>
+                </div>
+            </section>
+            <section id="deep-consult-page" class="page">
+                <div class="page-header">
+                    <h2>深度咨询</h2>
+                    <p class="subtitle">专业AI心理咨询师</p>
+                </div>
+                <div class="vip-gate" id="deep-consult-gate">
+                    <div class="gate-card">
+                        <div class="gate-icon">🧠</div>
+                        <h3>深度咨询服务</h3>
+                        <p>VIP会员专享功能</p>
+                        <p style="margin-top:20px;font-size:14px;color:#c9a227;">请添加微信 m731843862 付款开通</p>
+                        <button class="unlock-btn" onclick="alert('请添加微信 m731843862 付款开通会员')">开通会员</button>
+                    </div>
+                </div>
+            </section>
+            <section id="report-page" class="page">
+                <div class="page-header">
+                    <h2>专业报告</h2>
+                    <p class="subtitle">心理健康报告</p>
+                </div>
+                <div class="vip-gate">
+                    <div class="gate-card">
+                        <div class="gate-icon">📋</div>
+                        <h3>专业心理健康报告</h3>
+                        <p>VIP会员专享功能</p>
+                        <p style="margin-top:20px;font-size:14px;color:#c9a227;">请添加微信 m731843862 付款开通</p>
+                        <button class="unlock-btn" onclick="alert('请添加微信 m731843862 付款开通会员')">开通会员</button>
+                    </div>
+                </div>
+            </section>
+            <section id="plan-page" class="page">
+                <div class="page-header">
+                    <h2>定制计划</h2>
+                    <p class="subtitle">个性化减压计划</p>
+                </div>
+                <div class="vip-gate">
+                    <div class="gate-card">
+                        <div class="gate-icon">📅</div>
+                        <h3>个性化减压计划</h3>
+                        <p>VIP会员专享功能</p>
+                        <p style="margin-top:20px;font-size:14px;color:#c9a227;">请添加微信 m731843862 付款开通</p>
+                        <button class="unlock-btn" onclick="alert('请添加微信 m731843862 付款开通会员')">开通会员</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <div id="vip-modal" class="modal">
+        <div class="modal-content vip-modal-content">
+            <button class="modal-close">&times;</button>
+            <div class="vip-modal-header">
+                <div class="vip-icon">👑</div>
+                <h3>升级心灵港湾VIP</h3>
+                <p>请添加微信 m731843862 付款开通</p>
+            </div>
+            <div class="vip-plans">
+                <div class="plan-card">
+                    <h4>月度会员</h4>
+                    <div class="plan-price">
+                        <span class="currency">¥</span>
+                        <span class="amount">29.9</span>
+                        <span class="period">/月</span>
+                    </div>
+                </div>
+                <div class="plan-card recommend">
+                    <h4>年度会员</h4>
+                    <div class="plan-price">
+                        <span class="currency">¥</span>
+                        <span class="amount">199</span>
+                        <span class="period">/年</span>
+                    </div>
+                </div>
+            </div>
+            <p style="text-align:center;margin-top:20px;color:#c9a227;">付款后截图发给我，立即开通</p>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
